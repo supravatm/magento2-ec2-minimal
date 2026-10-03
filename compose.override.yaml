@@ -1,0 +1,15 @@
+services:
+  phpfpm:
+    image: markoshust/magento-php:8.5-fpm-0
+  # phpfpm-xdebug:
+  #   image: markoshust/magento-php:8.5-fpm-xdebug-0
+  app:
+    image: markoshust/magento-nginx:1.28-0
+  opensearch:
+    image: markoshust/magento-opensearch:3-0
+  db:
+    image: mariadb:11.8
+  rabbitmq:
+    image: markoshust/magento-rabbitmq:4.2-0
+  redis:
+    image: valkey/valkey:9.1-alpine
