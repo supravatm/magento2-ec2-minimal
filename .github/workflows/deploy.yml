@@ -1,4 +1,4 @@
-name: Deploy Magento to EC2
+name: Deploy Magento minimal to EC2
 
 on:
   push:
