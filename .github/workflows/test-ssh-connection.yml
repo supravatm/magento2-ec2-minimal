@@ -33,4 +33,4 @@ jobs:
             -o ConnectTimeout=15 \
             -o StrictHostKeyChecking=yes \
             "$EC2_USER@$EC2_HOST" \
-            'echo "SSH connection successful after delete inbound rule"; hostname; whoami'
+            'echo "SSH connection successful"'
