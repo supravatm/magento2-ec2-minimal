@@ -1,11 +1,13 @@
-
-name: Test SSH Connection to EC2
+name: Deploy Magento minimal to EC2
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
-  test-ssh:
+  deploy:
     runs-on: ubuntu-latest
     environment: integration
 
@@ -17,14 +19,12 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-
           printf '%s\n' "$EC2_SSH_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-
           printf '%s\n' "$EC2_KNOWN_HOSTS" > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
 
-      - name: Test SSH Connection
+      - name: Deploy to EC2
         env:
           EC2_HOST: ${{ vars.EC2_HOST }}
           EC2_USER: ${{ vars.EC2_USER }}
@@ -34,4 +34,5 @@ jobs:
             -o ConnectTimeout=15 \
             -o StrictHostKeyChecking=yes \
             "$EC2_USER@$EC2_HOST" \
-            'echo "SSH connection successful"; hostname; whoami'
+            'cd /var/www/html/magebox &&
+            git pull --ff-only origin main'
